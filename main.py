@@ -1,6 +1,7 @@
 import random
 import os
 import time
+
 BLUE ="\033[94m"  # Modrá
 WHITE ="\033[97m"  # Bílá
 RED = "\033[91m"  # Červená
@@ -288,9 +289,16 @@ class AIPlayer(Player):
 
 
         if result == "Sunk":
+            for sx, sy in self.current_ship_hits:
+                for dx in range(-1,2):
+                    for dy in range(-1,2):
+                        nx,ny = sx+dx, sy + dy
+                        if 0<= nx <self.board.size and 0<= ny <self.board.size:
+                            self.shot.add((nx,ny))
+
+
             self.target_to_hit.clear()
             self.current_ship_hits.clear()
-
 
 class BattleShipGame:
 
